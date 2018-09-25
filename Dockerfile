@@ -53,7 +53,9 @@ ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 
 
 RUN groupadd -r -g 1000 ${group} \
-  && useradd ${group} -r -u 1000 -g 1000
+  && useradd ${user} -r -u 1000 -g 1000
+
+RUN usermod -aG wheel ${user}
 
 RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
 
@@ -83,7 +85,7 @@ parameterized-trigger:2.32 \
 git:3.0.5 \
 
 
-# add the admin user  
+# add the admin user
 COPY /configs/users "$JENKINS_HOME"/users/
 
 # Add the main config file to the jenkins path  
