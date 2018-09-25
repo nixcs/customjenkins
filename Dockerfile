@@ -53,7 +53,7 @@ ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 
 
 RUN groupadd -r -g 1000 ${group} \
-  && sudo useradd ${group} -r -u 1000 -g 1000
+  && useradd ${group} -r -u 1000 -g 1000
 
 RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
 
