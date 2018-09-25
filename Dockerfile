@@ -56,9 +56,7 @@ ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 
 
 RUN chown -R ${user} "$JENKINS_HOME"
-RUN chown -R ${user}  /usr
-RUN chown -R ${user}  /usr/local
-RUN chown -R ${user}  /usr/local/bin
+
 
 
 # for main web interface:
@@ -75,16 +73,6 @@ COPY jenkins-support /usr/local/bin/jenkins-support
 COPY jenkins.sh /usr/local/bin/jenkins.sh
 
 
-# from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
-COPY install-plugins.sh /usr/local/bin/install-plugins.sh
-
-# Add/Remove  the plugins you want  
-RUN /usr/local/bin/install-plugins.sh \
-dashboard-view:2.9.10 \
-pipeline-stage-view:2.4 \
-parameterized-trigger:2.32 \
-#bitbucket:1.1.5 \
-git:3.0.5 \
 
 
 # add the admin user
@@ -93,26 +81,3 @@ COPY /configs/users "$JENKINS_HOME"/users/
 # Add the main config file to the jenkins path  
 COPY /configs/jenkins_home_config.xml "$JENKINS_HOME"/config.xml
 
-# Name the jobs  
-ARG job_name_1="my_super_job"  
-ARG job_name_2="my_ultra_job"
-
-# Create the job workspaces  
-RUN mkdir -p "$JENKINS_HOME"/workspace/${job_name_1}  
-RUN mkdir -p "$JENKINS_HOME"/workspace/${job_name_2}
-
-# Create the jobs folder recursively  
-RUN mkdir -p "$JENKINS_HOME"/jobs/${job_name_1}  
-RUN mkdir -p "$JENKINS_HOME"/jobs/${job_name_2}
-
-# Add the custom configs to the container  
-COPY /configs/${job_name_1}_config.xml "$JENKINS_HOME"/jobs/${job_name_1}/config.xml  
-COPY /configs/${job_name_2}_config.xml "$JENKINS_HOME"/jobs/${job_name_2}/config.xml
-
-# Create build file structure  
-RUN mkdir -p "$JENKINS_HOME"/jobs/${job_name_1}/latest/  
-RUN mkdir -p "$JENKINS_HOME"/jobs/${job_name_1}/builds/1/
-
-# Create build file structure  
-RUN mkdir -p "$JENKINS_HOME"/jobs/${job_name_2}/latest/  
-RUN mkdir -p "$JENKINS_HOME"/jobs/${job_name_2}/builds/1/
