@@ -58,7 +58,7 @@ RUN chown -R ${user} "$JENKINS_HOME"
 RUN chown -R ${user}  /usr
 RUN chown -R ${user}  /usr/local
 RUN chown -R ${user}  /usr/local/bin
-RUN chown -R ${user}  /usr/local/bin/install-plugins.sh
+
 
 # for main web interface:
 EXPOSE ${http_port}
@@ -76,7 +76,7 @@ COPY jenkins.sh /usr/local/bin/jenkins.sh
 
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
-
+RUN chown -R ${user}  /usr/local/bin/install-plugins.sh
 # Add/Remove  the plugins you want  
 RUN /usr/local/bin/install-plugins.sh \
 dashboard-view:2.9.10 \
