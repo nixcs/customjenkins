@@ -1,6 +1,6 @@
 jenkins2:  
-  container_name: j2  
-  image: jenkins:lts  
+  container_name: jenkins
+  image: jenkins:jenkins
   environment:  
     JAVA_OPTS: "-Djava.awt.headless=true"  
     JAVA_OPTS: "-Djenkins.install.runSetupWizard=false" # Start jenkins unlocked  
