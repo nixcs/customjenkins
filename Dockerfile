@@ -52,6 +52,11 @@ ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 
 
+RUN sudo groupadd -r -g 1000 ${group} \
+  && sudo useradd ${group} -r -u 1000 -g 1000
+
+RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
+
 # for main web interface:
 EXPOSE ${http_port}
 
@@ -64,7 +69,6 @@ USER ${user}
 
 COPY jenkins-support /usr/local/bin/jenkins-support
 COPY jenkins.sh /usr/local/bin/jenkins.sh
-
 
 
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
