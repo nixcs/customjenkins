@@ -28,6 +28,8 @@ VOLUME $JENKINS_HOME
 RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
 
 # Use tini as subreaper in Docker container to adopt zombie processes
+RUN groupadd -r -g 1000 ${group} \
+  && useradd ${user} -r -u 1000 -g 1000
 
 
 COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groovy
@@ -52,12 +54,11 @@ ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 
 
-RUN groupadd -r -g 1000 ${group} \
-  && useradd ${user} -r -u 1000 -g 1000
-
-
 RUN chown -R ${user} "$JENKINS_HOME"
+RUN chown -R ${user}  /usr
+RUN chown -R ${user}  /usr/local
 RUN chown -R ${user}  /usr/local/bin
+RUN chown -R ${user}  /usr/local/bin/install-plugins.sh
 
 # for main web interface:
 EXPOSE ${http_port}
