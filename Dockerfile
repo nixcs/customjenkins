@@ -1,6 +1,7 @@
 FROM openjdk:8-jdk
 
 RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 
 ARG user=jenkins
 ARG group=jenkins
@@ -76,7 +77,7 @@ COPY jenkins.sh /usr/local/bin/jenkins.sh
 
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
-RUN chown -R ${user}  /usr/local/bin/install-plugins.sh
+
 # Add/Remove  the plugins you want  
 RUN /usr/local/bin/install-plugins.sh \
 dashboard-view:2.9.10 \
