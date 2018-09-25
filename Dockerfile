@@ -55,9 +55,8 @@ ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 RUN groupadd -r -g 1000 ${group} \
   && useradd ${user} -r -u 1000 -g 1000
 
-RUN usermod -aG wheel ${user}
 
-RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
+RUN chown -R ${user} "$JENKINS_HOME"
 
 # for main web interface:
 EXPOSE ${http_port}
