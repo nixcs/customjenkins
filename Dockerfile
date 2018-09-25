@@ -57,6 +57,7 @@ RUN groupadd -r -g 1000 ${group} \
 
 
 RUN chown -R ${user} "$JENKINS_HOME"
+RUN chown -R ${user}  /usr/local/bin
 
 # for main web interface:
 EXPOSE ${http_port}
