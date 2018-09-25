@@ -74,14 +74,14 @@ COPY jenkins.sh /usr/local/bin/jenkins.sh
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 
-  # Add/Remove  the plugins you want  
-   RUN /usr/local/bin/install-plugins.sh \  
-   dashboard-view:2.9.10 \  
-   pipeline-stage-view:2.4 \  
-   parameterized-trigger:2.32 \  
-   #bitbucket:1.1.5 \  
-   git:3.0.5 \  
-   github:1.26.0`
+# Add/Remove  the plugins you want  
+RUN /usr/local/bin/install-plugins.sh \
+dashboard-view:2.9.10 \
+pipeline-stage-view:2.4 \
+parameterized-trigger:2.32 \
+#bitbucket:1.1.5 \
+git:3.0.5 \
+
 
 # add the admin user  
 COPY /configs/users "$JENKINS_HOME"/users/
