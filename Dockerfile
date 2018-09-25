@@ -2,7 +2,7 @@ FROM openjdk:8-jdk
 
 RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
 
-ARG user=admin
+ARG user=jenkins
 ARG group=jenkins
 ARG uid=1000
 ARG gid=1000
@@ -50,7 +50,7 @@ RUN curl -fsSL ${JENKINS_URL} -o /usr/share/jenkins/jenkins.war \
 ENV JENKINS_UC https://updates.jenkins.io
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
-RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
+
 
 # for main web interface:
 EXPOSE ${http_port}
