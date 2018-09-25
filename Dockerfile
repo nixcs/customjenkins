@@ -52,7 +52,7 @@ ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 ENV JENKINS_INCREMENTALS_REPO_MIRROR=https://repo.jenkins-ci.org/incrementals
 
 
-RUN sudo groupadd -r -g 1000 ${group} \
+RUN groupadd -r -g 1000 ${group} \
   && sudo useradd ${group} -r -u 1000 -g 1000
 
 RUN chown -R ${user} "$JENKINS_HOME" /usr/share/jenkins/ref
